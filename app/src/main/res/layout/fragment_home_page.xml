@@ -6,23 +6,88 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HomePage">
 
- <com.google.android.material.appbar.AppBarLayout
+
+ <androidx.constraintlayout.widget.ConstraintLayout
      android:layout_width="match_parent"
-     android:layout_height="wrap_content"
- >
+     android:layout_height="match_parent">
 
-  <com.google.android.material.appbar.MaterialToolbar
-      android:id="@+id/toolbar"
+
+
+
+  <TextView
+      android:id="@+id/textView5"
+      android:layout_width="wrap_content"
+      android:textSize="16sp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="20dp"
+      android:textStyle="bold"
+      android:textColor="?attr/colorPrimary"
+      android:layout_marginTop="20dp"
+      android:text="Categories"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+  <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/appBarLayout"
       android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:background="?attr/colorPrimary"
-      app:titleTextColor="@color/white"
-     >
+      android:layout_height="wrap_content"
+      tools:ignore="MissingConstraints">
+
+   <com.google.android.material.appbar.MaterialToolbar
+       android:id="@+id/toolbar"
+       android:layout_width="match_parent"
+       android:layout_height="?attr/actionBarSize"
+       android:background="?attr/colorPrimary"
+       app:titleTextColor="@color/white">
+
+
+   </com.google.android.material.appbar.MaterialToolbar>
+
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <LinearLayout
+      android:id="@+id/linearLayout"
+      android:layout_width="match_parent"
+      android:layout_height="150dp"
+      android:layout_gravity="start"
+      android:background="@drawable/main_card"
+      android:orientation="vertical"
+      app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+
+   <TextView
+       android:id="@+id/textView3"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginStart="20dp"
+       android:layout_weight="1"
+       android:text="Welcome Back"
+       android:textColor="@color/white" />
+
+   <TextView
+       android:id="@+id/textView4"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginStart="20dp"
+       android:layout_weight="1"
+       android:text="Let\'s find \n your top Doctor"
+       android:textColor="@color/white"
+       android:textSize="30sp" />
+  </LinearLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/horizontalRecyclerView"
+   android:layout_marginTop="20dp"
+      android:layout_width="match_parent"
+   android:layout_marginHorizontal="5dp"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/textView5"/>
+<!--      tools:listitem="@layout/your_list_item_layout"-->
 
 
 
-  </com.google.android.material.appbar.MaterialToolbar>
-
- </com.google.android.material.appbar.AppBarLayout>
-
+ </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
