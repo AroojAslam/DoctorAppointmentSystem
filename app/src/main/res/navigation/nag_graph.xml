@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nag_graph"
+    app:startDestination="@id/startPage">
+
+    <fragment
+        android:id="@+id/startPage"
+        android:name="com.example.doctorappointmentsystem.StartPage"
+        android:label="fragment_start_page"
+        tools:layout="@layout/fragment_start_page" >
+        <action
+            android:id="@+id/action_startPage_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/homePage"
+        android:name="com.example.doctorappointmentsystem.HomePage"
+        android:label="fragment_home_page"
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePage_to_doctorProfile"
+            app:destination="@id/doctorProfile" />
+        <action
+            android:id="@+id/action_homePage_to_yourAppointment"
+            app:destination="@id/yourAppointment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorProfile"
+        android:name="com.example.doctorappointmentsystem.DoctorProfile"
+        android:label="fragment_doctor_profile"
+        tools:layout="@layout/fragment_doctor_profile" >
+        <action
+            android:id="@+id/action_doctorProfile_to_appointmentForm"
+            app:destination="@id/appointmentForm" />
+    </fragment>
+    <fragment
+        android:id="@+id/yourAppointment"
+        android:name="com.example.doctorappointmentsystem.YourAppointment"
+        android:label="fragment_your_appointment"
+        tools:layout="@layout/fragment_your_appointment" />
+    <fragment
+        android:id="@+id/appointmentForm"
+        android:name="com.example.doctorappointmentsystem.AppointmentForm"
+        android:label="fragment_appointment_form"
+        tools:layout="@layout/fragment_appointment_form" >
+        <action
+            android:id="@+id/action_appointmentForm_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
+</navigation>
