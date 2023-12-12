@@ -7,19 +7,17 @@
     tools:context=".HomePage">
 
 
+
  <androidx.constraintlayout.widget.ConstraintLayout
      android:layout_width="match_parent"
      android:layout_height="match_parent">
-
-
-
 
   <TextView
       android:id="@+id/textView5"
       android:layout_width="wrap_content"
       android:textSize="16sp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="20dp"
+      android:layout_marginStart="10dp"
       android:textStyle="bold"
       android:textColor="?attr/colorPrimary"
       android:layout_marginTop="20dp"
@@ -61,7 +59,7 @@
        android:layout_height="wrap_content"
        android:layout_marginStart="20dp"
        android:layout_weight="1"
-       android:text="Welcome Back"
+       android:text=" "
        android:textColor="@color/white" />
 
    <TextView
@@ -77,7 +75,7 @@
 
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/horizontalRecyclerView"
-   android:layout_marginTop="20dp"
+   android:layout_marginTop="10dp"
       android:layout_width="match_parent"
    android:layout_marginHorizontal="5dp"
       android:layout_height="wrap_content"
@@ -85,7 +83,30 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/textView5"/>
-<!--      tools:listitem="@layout/your_list_item_layout"-->
+
+  <TextView
+      android:id="@+id/textView6"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="10dp"
+      android:layout_marginTop="20dp"
+      android:text="Doctors"
+      android:textColor="?attr/colorPrimary"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/horizontalRecyclerView" />
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/verticalRecyclerView"
+      android:layout_width="match_parent"
+      android:layout_height="350dp"
+      android:layout_below="@id/horizontalRecyclerView"
+      android:layout_marginTop="10dp"
+      android:padding="16dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/textView6"
+      tools:ignore="MissingConstraints" />
 
 
 

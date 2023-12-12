@@ -1,59 +1,41 @@
 package com.example.doctorappointmentsystem
-
+import TimeSlotAdapter
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.GridView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.navigation.fragment.findNavController
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DoctorProfile.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DoctorProfile : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_doctor_profile, container, false)
+        val view=inflater.inflate(R.layout.fragment_doctor_profile, container, false)
+        val toolbar: Toolbar = view.findViewById(R.id.toolbar)
+        (activity as AppCompatActivity?)?.setSupportActionBar(toolbar)
+        (activity as AppCompatActivity?)?.supportActionBar?.title = "Doctor Profile"
+        val gridView: GridView = view.findViewById(R.id.gridView)
+        val timeSlots = listOf(
+            "10:00 AM", "10:30 AM", "11:00 AM",
+            "11:30 AM", "12:00 PM", "12:30 PM",
+
+        )
+        val button : Button=view.findViewById(R.id.button)
+        button.setOnClickListener{
+            findNavController().navigate(R.id.action_doctorProfile_to_appointmentForm)
+        }
+        val adapter = TimeSlotAdapter(requireContext(), timeSlots)
+        gridView.adapter = adapter
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DoctorProfile.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DoctorProfile().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
