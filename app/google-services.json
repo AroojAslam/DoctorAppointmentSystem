@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "502608385076",
+    "project_id": "doctor-appointment-syste-77dab",
+    "storage_bucket": "doctor-appointment-syste-77dab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502608385076:android:02b69f5226b42cd7332661",
+        "android_client_info": {
+          "package_name": "com.example.doctorappointmentsystem"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJHZSHe-BBgPA7ee-AlPLRen72BWzF9rA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

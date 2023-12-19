@@ -1,46 +1,37 @@
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.doctorappointmentsystem.Doctor
 import com.example.doctorappointmentsystem.R
 
 class DoctorAdapter(private val doctorList: List<Doctor>) :
-    RecyclerView.Adapter<DoctorAdapter.DoctorViewHolder>() {
+    RecyclerView.Adapter<DoctorAdapter.ViewHolder>() {
 
-    private var onItemClickListener: ((Doctor) -> Unit)? = null
-
-    fun setOnItemClickListener(listener: (Doctor) -> Unit) {
-        onItemClickListener = listener
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
+        val specialtiesTextView: TextView = itemView.findViewById(R.id.specialtiesTextView)
+//        val aboutTextView: TextView = itemView.findViewById(R.id.aboutTextView)
+//        val idTextView: TextView = itemView.findViewById(R.id.idTextView)
     }
 
-    class DoctorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val icon: ImageView = itemView.findViewById(R.id.doctorIcon)
-        val name: TextView = itemView.findViewById(R.id.doctorName)
-        val type: TextView = itemView.findViewById(R.id.doctorType)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_doctor, parent, false)
+        return ViewHolder(itemView)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_doctor, parent, false)
-        return DoctorViewHolder(view)
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val currentDoctor = doctorList[position]
 
-    override fun onBindViewHolder(holder: DoctorViewHolder, position: Int) {
-        val doctor = doctorList[position]
-        holder.icon.setImageResource(R.drawable.ic_doctor)
-        holder.name.text = doctor.name
-        holder.type.text = doctor.type
-        holder.itemView.setOnClickListener {
-            onItemClickListener?.invoke(doctor)
-        }
+        holder.nameTextView.text = "${currentDoctor.name}"
+        holder.specialtiesTextView.text = "${currentDoctor.specialties}"
+//        holder.aboutTextView.text = "About: ${currentDoctor.about}"
+//        holder.idTextView.text = "ID: ${currentDoctor.id}"
     }
 
     override fun getItemCount(): Int {
         return doctorList.size
     }
-
-
 }

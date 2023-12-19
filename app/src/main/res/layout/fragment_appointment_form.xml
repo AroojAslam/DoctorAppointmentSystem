@@ -23,7 +23,31 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:titleTextColor="@color/white">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
+                    <ImageButton
+                        android:id="@+id/backicon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="?attr/colorPrimary"
+                        android:src="@drawable/ic_back_arrow" />
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:id="@+id/textView3"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Appointment Form" />
+
+                </LinearLayout>
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -61,77 +85,50 @@
             app:layout_constraintBottom_toTopOf="@+id/submit"
             app:layout_constraintTop_toBottomOf="@+id/textView9">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nameInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <EditText
+                android:id="@+id/nameEditText"
+                android:layout_height="50dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Name">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/nameEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ageInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Age">
+                android:hint="Name"
+                android:textSize="16sp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ageEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phoneInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <EditText
+                android:id="@+id/ageEditText"
+                android:layout_height="50dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Phone Number">
+                android:hint="Age"
+                android:inputType="number"
+                android:textSize="16sp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phoneEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="phone" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/genderInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <EditText
+                android:id="@+id/phoneEditText"
+                android:layout_height="50dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Gender">
+                android:hint="Phone Number"
+                android:inputType="phone"
+                android:textSize="16sp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/genderEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/timeInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <EditText
+                android:id="@+id/genderEditText"
+                android:layout_height="50dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Selected Time">
+                android:hint="Gender"
+                android:textSize="16sp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/timeEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/timeEditText"
+                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
+                android:hint="Selected Time"
+                android:focusable="false"
+                android:textSize="16sp"/>
         </LinearLayout>
+
 
         <Button
             android:id="@+id/submit"

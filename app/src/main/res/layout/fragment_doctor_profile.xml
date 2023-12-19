@@ -26,6 +26,32 @@
                 android:background="?attr/colorPrimary"
                 app:titleTextColor="@color/white">
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/backicon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="?attr/colorPrimary"
+                        android:src="@drawable/ic_back_arrow" />
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:id="@+id/textView3"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Doctor Profile" />
+
+                </LinearLayout>
+
 
             </com.google.android.material.appbar.MaterialToolbar>
 

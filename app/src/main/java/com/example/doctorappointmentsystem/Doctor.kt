@@ -1,3 +1,8 @@
 package com.example.doctorappointmentsystem
 
-data class Doctor(val name: String, val type: String)
+data class Doctor(
+    val name: String?,
+    val specialties: String?,
+    val about: String?,
+    val id: String?
+)

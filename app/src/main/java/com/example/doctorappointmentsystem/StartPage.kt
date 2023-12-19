@@ -17,7 +17,7 @@ class StartPage : Fragment() {
        val view =inflater.inflate(R.layout.fragment_start_page, container, false)
         val button : Button = view.findViewById(R.id.button)
         button.setOnClickListener{
-            findNavController().navigate(R.id.action_startPage_to_homePage)
+            findNavController().navigate(R.id.action_startPage_to_login)
         }
         return view
     }

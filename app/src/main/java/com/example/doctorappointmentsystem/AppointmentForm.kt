@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -23,14 +24,17 @@ class AppointmentForm : Fragment() {
         val view =inflater.inflate(R.layout.fragment_appointment_form, container, false)
         val toolbar: Toolbar = view.findViewById(R.id.toolbar)
         (activity as AppCompatActivity?)?.setSupportActionBar(toolbar)
-        (activity as AppCompatActivity?)?.supportActionBar?.title = "Appointment Form"
-        val actionBar: ActionBar? = (activity as AppCompatActivity?)?.supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity?)?.supportActionBar?.title = ""
       val submit : Button =view.findViewById(R.id.submit)
      submit.setOnClickListener{
          Toast.makeText(requireContext(), "Your Appointment is Added", Toast.LENGTH_SHORT).show()
          findNavController().navigate(R.id.action_appointmentForm_to_homePage)
      }
+
+        val backicon :ImageButton =view.findViewById(R.id.backicon)
+        backicon.setOnClickListener {
+            findNavController().navigate(R.id.action_appointmentForm_to_doctorProfile)
+        }
         return view
     }
 

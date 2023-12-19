@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/homefragment"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,6 +32,8 @@
       android:layout_height="wrap_content"
       tools:ignore="MissingConstraints">
 
+
+
    <com.google.android.material.appbar.MaterialToolbar
        android:id="@+id/toolbar"
        android:layout_width="match_parent"
@@ -38,7 +41,14 @@
        android:background="?attr/colorPrimary"
        app:titleTextColor="@color/white">
 
-
+    <ImageButton
+        android:id="@+id/logoutButton"
+        android:layout_marginRight="15dp"
+        android:layout_gravity="right"
+        android:background="?attr/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_logout" />
    </com.google.android.material.appbar.MaterialToolbar>
 
   </com.google.android.material.appbar.AppBarLayout>
@@ -46,21 +56,12 @@
   <LinearLayout
       android:id="@+id/linearLayout"
       android:layout_width="match_parent"
-      android:layout_height="150dp"
+      android:layout_height="100dp"
       android:layout_gravity="start"
       android:background="@drawable/main_card"
-      android:orientation="vertical"
+      android:orientation="horizontal"
       app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
-
-   <TextView
-       android:id="@+id/textView3"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_marginStart="20dp"
-       android:layout_weight="1"
-       android:text=" "
-       android:textColor="@color/white" />
 
    <TextView
        android:id="@+id/textView4"
@@ -68,9 +69,17 @@
        android:layout_height="wrap_content"
        android:layout_marginStart="20dp"
        android:layout_weight="1"
+       android:layout_marginBottom="20dp"
        android:text="Let\'s find \n your top Doctor"
        android:textColor="@color/white"
        android:textSize="30sp" />
+
+   <ImageView
+       android:id="@+id/imageView4"
+       android:layout_width="100dp"
+       android:layout_height="wrap_content"
+       android:layout_weight="1"
+       android:src="@drawable/doc_ic" />
   </LinearLayout>
 
   <androidx.recyclerview.widget.RecyclerView
@@ -100,14 +109,26 @@
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/verticalRecyclerView"
       android:layout_width="match_parent"
-      android:layout_height="350dp"
+      android:layout_height="400dp"
       android:layout_below="@id/horizontalRecyclerView"
       android:layout_marginTop="10dp"
       android:padding="16dp"
       app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/textView6"
       tools:ignore="MissingConstraints" />
 
+  <Button
+      android:id="@+id/button2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="20dp"
+      android:background="@drawable/my_button"
+      android:layout_marginBottom="20dp"
+      android:text="Your Appointments"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" />
 
 
  </androidx.constraintlayout.widget.ConstraintLayout>
