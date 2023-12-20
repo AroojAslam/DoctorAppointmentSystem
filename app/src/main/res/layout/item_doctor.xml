@@ -53,14 +53,14 @@
             android:layout_marginStart="16dp">
 
             <TextView
-                android:id="@+id/nameTextView"
+                android:id="@+id/tvDoctorName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/specialtiesTextView"
+                android:id="@+id/tvDoctorSpecialty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp" />

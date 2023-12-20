@@ -74,21 +74,19 @@
                 android:src="@drawable/ic_doctor" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/nameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textColor="?attr/colorPrimary"
-                android:text="Dr. Smith"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/specialtiesTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Cardiologist" />
+                android:layout_marginTop="5dp" />
 
         </LinearLayout>
 
@@ -107,14 +105,13 @@
 
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/aboutTextView"
             android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/category_card"
-            android:text="Doctors are highly trained medical professionals who diagnose, treat, and prevent illnesses and injuries. They play a crucial role in maintaining public health by applying their medical knowledge and skills to provide patient care, emphasizing a commitment to the well-being and recovery of individuals."
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <TextView
@@ -128,7 +125,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+            app:layout_constraintTop_toBottomOf="@+id/aboutTextView" />
 
         <LinearLayout
             android:layout_width="match_parent"

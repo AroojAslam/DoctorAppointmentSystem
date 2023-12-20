@@ -6,9 +6,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.doctorappointmentsystem.R
 
-class CategorieAdapter(private val dataList: List<String>, private val icons: List<String>) : RecyclerView.Adapter<CategorieAdapter.ViewHolder>() {
+class CategoryAdapter(private val dataList: List<String>, private val icons: List<String>) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override   fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_horizontal_list, parent, false)
         return ViewHolder(view)
     }

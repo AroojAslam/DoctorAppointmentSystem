@@ -68,11 +68,12 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_marginStart="20dp"
+       android:textStyle="bold"
        android:layout_weight="1"
        android:layout_marginBottom="20dp"
        android:text="Let\'s find \n your top Doctor"
        android:textColor="@color/white"
-       android:textSize="30sp" />
+       android:textSize="28sp" />
 
    <ImageView
        android:id="@+id/imageView4"

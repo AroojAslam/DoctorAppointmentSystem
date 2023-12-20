@@ -9,26 +9,21 @@ import com.example.doctorappointmentsystem.R
 class DoctorAdapter(private val doctorList: List<Doctor>) :
     RecyclerView.Adapter<DoctorAdapter.ViewHolder>() {
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
-        val specialtiesTextView: TextView = itemView.findViewById(R.id.specialtiesTextView)
-//        val aboutTextView: TextView = itemView.findViewById(R.id.aboutTextView)
-//        val idTextView: TextView = itemView.findViewById(R.id.idTextView)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvName: TextView = itemView.findViewById(R.id.tvDoctorName)
+        val tvSpecialty: TextView = itemView.findViewById(R.id.tvDoctorSpecialty)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_doctor, parent, false)
-        return ViewHolder(itemView)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_doctor, parent, false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val currentDoctor = doctorList[position]
-
-        holder.nameTextView.text = "${currentDoctor.name}"
-        holder.specialtiesTextView.text = "${currentDoctor.specialties}"
-//        holder.aboutTextView.text = "About: ${currentDoctor.about}"
-//        holder.idTextView.text = "ID: ${currentDoctor.id}"
+        val doctor = doctorList[position]
+        holder.tvName.text = doctor.name
+        holder.tvSpecialty.text = doctor.specialty
     }
 
     override fun getItemCount(): Int {
