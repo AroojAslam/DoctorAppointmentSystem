@@ -4,15 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DoctorProfile">
+    tools:context=".DocProfile">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-
-
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
@@ -50,13 +47,12 @@
                         android:layout_weight="1"
                         android:text="Doctor Profile" />
 
-                </LinearLayout>
 
+                </LinearLayout>
 
             </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
-
         <LinearLayout
 
             android:id="@+id/linearLayout2"
@@ -67,9 +63,12 @@
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
             <ImageView
+                android:background="@drawable/ic_doctor_profile"
+                android:backgroundTint="?attr/colorPrimary"
+             android:padding="20dp"
                 android:id="@+id/imageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/ic_doctor" />
 
@@ -107,7 +106,7 @@
         <TextView
             android:id="@+id/aboutTextView"
             android:padding="8dp"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -115,39 +114,41 @@
             android:background="@drawable/category_card"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Available Slot"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/aboutTextView" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/editProfileButton"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/my_button"
+            android:text="Edit Profile"
+            app:layout_constraintBottom_toTopOf="@+id/ViewSlotButton"
+            tools:layout_editor_absoluteX="20dp" />
+
+        <Button
+            android:id="@+id/ViewSlotButton"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/my_button"
+            android:text="View Available Slot"
+            app:layout_constraintBottom_toTopOf="@+id/addSlotButton"
+            tools:layout_editor_absoluteX="20dp" />
+
+        <Button
+            android:id="@+id/addSlotButton"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@drawable/my_button"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"
-            android:text="Take Appointment"
+            android:layout_marginBottom="10dp"
+            android:text="Add Slot"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="20dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewDoctorTimings"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/button"
-            app:layout_constraintTop_toBottomOf="@+id/textView12"
-            tools:ignore="MissingConstraints" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

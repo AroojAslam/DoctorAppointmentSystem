@@ -6,9 +6,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.doctorappointmentsystem.R
 
-class CategoryAdapter(private val dataList: List<String>, private val icons: List<String>) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter(
+    private val dataList: List<String>,
+    private val icons: List<String>,
+    private val onItemClickListener: (String) -> Unit
+) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-    override   fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_horizontal_list, parent, false)
         return ViewHolder(view)
     }
@@ -30,6 +34,11 @@ class CategoryAdapter(private val dataList: List<String>, private val icons: Lis
 
             val resourceId = itemView.context.resources.getIdentifier(icon, "drawable", itemView.context.packageName)
             imageView.setImageResource(resourceId)
+
+            itemView.setOnClickListener {
+                // Call the onItemClick callback when an item is clicked
+                onItemClickListener.invoke(item)
+            }
         }
     }
 }

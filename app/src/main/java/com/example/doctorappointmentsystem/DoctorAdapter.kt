@@ -1,13 +1,17 @@
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.doctorappointmentsystem.Doctor
 import com.example.doctorappointmentsystem.R
 
-class DoctorAdapter(private val doctorList: List<Doctor>) :
+class DoctorAdapter(private var originalDoctorList: List<Doctor>) :
     RecyclerView.Adapter<DoctorAdapter.ViewHolder>() {
+
+    private var filteredDoctorList: List<Doctor> = originalDoctorList
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName: TextView = itemView.findViewById(R.id.tvDoctorName)
@@ -21,12 +25,40 @@ class DoctorAdapter(private val doctorList: List<Doctor>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val doctor = doctorList[position]
+        val doctor = filteredDoctorList[position]
         holder.tvName.text = doctor.name
         holder.tvSpecialty.text = doctor.specialty
+
+        holder.itemView.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("doctorName", doctor.name)
+            bundle.putString("doctorSpecialty", doctor.specialty)
+            bundle.putString("doctorAbout", doctor.about)
+            bundle.putString("doctorId", doctor.doctorId)
+
+            // Pass the bundle to DoctorProfile fragment
+            it.findNavController().navigate(R.id.action_homePage_to_doctorProfile, bundle)
+        }
     }
 
     override fun getItemCount(): Int {
-        return doctorList.size
+        return filteredDoctorList.size
+    }
+
+    // Function to update the list of doctors and apply filtering
+    fun updateDoctorList(newDoctorList: List<Doctor>, category: String) {
+        originalDoctorList = newDoctorList
+        filterDoctors(category)
+    }
+
+    // Function to filter doctors based on the selected category
+    private fun filterDoctors(category: String) {
+        filteredDoctorList = if (category.isEmpty() || category == "All") {
+            originalDoctorList // Show all doctors if no category selected or "All" selected
+        } else {
+            originalDoctorList.filter { it.specialty == category } // Filter doctors based on category
+        }
+        notifyDataSetChanged()
     }
 }
+

@@ -1,36 +1,122 @@
 package com.example.doctorappointmentsystem
+
+import DoctorTimingAdapter
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 
-class DoctorProfile : Fragment() {
+class DoctorProfile : Fragment(), DoctorTimingAdapter.OnItemClickListener {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var timingAdapter: RecyclerView.Adapter<*>
+    private lateinit var timingList: MutableList<DoctorTiming>
+    private var selectedPosition = RecyclerView.NO_POSITION
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view=inflater.inflate(R.layout.fragment_doctor_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_doctor_profile, container, false)
         val toolbar: Toolbar = view.findViewById(R.id.toolbar)
         (activity as AppCompatActivity?)?.setSupportActionBar(toolbar)
         (activity as AppCompatActivity?)?.supportActionBar?.title = ""
-
-        val button : Button=view.findViewById(R.id.button)
-        button.setOnClickListener{
-            findNavController().navigate(R.id.action_doctorProfile_to_appointmentForm)
-        }
-
-        val backicon:ImageButton =view.findViewById(R.id.backicon)
+        val backicon: ImageButton = view.findViewById(R.id.backicon)
         backicon.setOnClickListener {
             findNavController().navigate(R.id.action_doctorProfile_to_homePage)
         }
 
+        // Retrieve data from arguments manually
+        val bundle = arguments
+        val doctorId = bundle?.getString("doctorId", "")
+        val doctorName = bundle?.getString("doctorName", "")
+        val doctorSpecialty = bundle?.getString("doctorSpecialty", "")
+        val aboutDoctor = bundle?.getString("doctorAbout", "")
+
+        // Display data in TextViews
+        val tvDoctorName: TextView = view.findViewById(R.id.nameTextView)
+        val tvDoctorSpecialty: TextView = view.findViewById(R.id.specialtiesTextView)
+        val tvDoctorAbout: TextView = view.findViewById(R.id.aboutTextView)
+
+        tvDoctorName.text = doctorName
+        tvDoctorSpecialty.text = doctorSpecialty
+        tvDoctorAbout.text = aboutDoctor
+
+        // Set up the RecyclerView for doctor timings
+        recyclerView = view.findViewById(R.id.recyclerViewDoctorTimings)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        timingList = mutableListOf()
+
+        // Fetch and display doctor's timing information from Firestore
+        fetchAndDisplayDoctorTimings(doctorId.orEmpty())
+        val button: Button = view.findViewById(R.id.button)
+        button.setOnClickListener {
+            if (selectedPosition != RecyclerView.NO_POSITION) {
+                // Item is selected, proceed to appointment form fragment
+                val selectedTiming = timingList[selectedPosition]
+                navigateToAppointmentForm(selectedTiming,doctorName.orEmpty(),doctorSpecialty.orEmpty())
+            } else {
+                showToast("Please select any Slot")
+            }
+        }
+
         return view
     }
+
+    private fun fetchAndDisplayDoctorTimings(doctorId: String) {
+        val db = FirebaseFirestore.getInstance()
+        val timingsCollection = db.collection("timing")
+
+        timingsCollection.whereEqualTo("doctor_id", doctorId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot) {
+                    val hospitalId = document.getString("hospital_id")
+                    val hours = document.getString("hours")
+                    val timing = DoctorTiming(hospitalId.orEmpty(), hours.orEmpty())
+                    timingList.add(timing)
+                }
+
+                timingAdapter = DoctorTimingAdapter(timingList, requireContext(),this)
+
+                recyclerView.adapter = timingAdapter
+            }
+            .addOnFailureListener { exception ->
+                // Handle errors
+            }
+    }
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun navigateToAppointmentForm(selectedTiming: DoctorTiming,doctorName: String,doctorSpecialty :String) {
+
+        val bundle = bundleOf(
+            "hospitalId" to selectedTiming.hospitalId,
+            "hours" to selectedTiming.hours,
+            "doctorName" to doctorName,
+            "doctorSpecialty" to doctorSpecialty,
+        )
+        findNavController().navigate(R.id.action_doctorProfile_to_appointmentForm, bundle)
+
+    }
+    override fun onItemClick(position: Int) {
+
+        selectedPosition = position
+        timingAdapter.notifyDataSetChanged()
+    }
+
 }

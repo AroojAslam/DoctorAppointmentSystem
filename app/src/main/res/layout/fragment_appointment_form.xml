@@ -14,7 +14,6 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/ic_back_arrow"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -23,6 +22,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:titleTextColor="@color/white">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,6 +48,7 @@
                         android:text="Appointment Form" />
 
                 </LinearLayout>
+
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -80,59 +81,101 @@
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:orientation="vertical"
             android:padding="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/submit"
             app:layout_constraintTop_toBottomOf="@+id/textView9">
 
             <EditText
                 android:id="@+id/nameEditText"
-                android:layout_height="50dp"
                 android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:hint="Name"
-                android:textSize="16sp"/>
-
-            <EditText
-                android:id="@+id/ageEditText"
-                android:layout_height="50dp"
-                android:layout_width="match_parent"
-                android:layout_marginTop="16dp"
-                android:hint="Age"
-                android:inputType="number"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/phoneEditText"
-                android:layout_height="50dp"
                 android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginTop="16dp"
-                android:hint="Phone Number"
+                android:hint="Phone Number(03** *******)"
                 android:inputType="phone"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/genderEditText"
-                android:layout_height="50dp"
                 android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginTop="16dp"
-                android:hint="Gender"
-                android:textSize="16sp"/>
+                android:hint="Gender(male,female,other)"
+                android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/timeEditText"
-                android:layout_height="50dp"
-                android:layout_width="match_parent"
-                android:layout_marginTop="16dp"
-                android:hint="Selected Time"
-                android:textSize="16sp"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linearLayout8"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/category_card"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/submit"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Selected Slot"
+                android:textSize="20dp"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"/>
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="2dp"
+               android:orientation="horizontal">
+               <TextView
+                   android:id="@+id/doctorName"
+                   android:layout_width="wrap_content"
+                   android:textSize="14dp"
+                   android:textStyle="bold"
+                   android:layout_gravity="left"
+                   android:layout_height="wrap_content"/>
+               <TextView
+                   android:id="@+id/DoctorSpecialty"
+                   android:layout_marginLeft="5dp"
+                   android:layout_width="wrap_content"
+                   android:textSize="14dp"
+                   android:layout_gravity="left"
+                   android:layout_height="wrap_content"/>
+           </LinearLayout>
+
+            <TextView
+                android:id="@+id/hospitalName"
+                android:layout_width="wrap_content"
+                android:textSize="14dp"
+                android:layout_marginBottom="2dp"
+                android:layout_gravity="left"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/timing"
+                android:layout_marginBottom="5dp"
+                android:layout_width="wrap_content"
+                android:text="Timing"
+                android:textSize="14dp"
+                android:layout_gravity="left"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/submit"
+            android:background="@drawable/my_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="10dp"
             android:text="Submit"
@@ -140,9 +183,6 @@
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="20dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
 
 

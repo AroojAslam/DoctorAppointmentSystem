@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/colorPrimary"
     android:layout_height="match_parent"
-    tools:context=".signup">
+    tools:context=".UserSignup">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

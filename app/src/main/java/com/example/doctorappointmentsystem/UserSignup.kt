@@ -12,36 +12,37 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 
-class signup : Fragment() {
+class UserSignup : Fragment() {
+
+    private val auth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-      val  auth = FirebaseAuth.getInstance()
-       val view = inflater.inflate(R.layout.fragment_signup, container, false)
-        val signupButton: Button =view.findViewById(R.id.signupButton)
+        val view = inflater.inflate(R.layout.fragment_user_signup, container, false)
+        val signupButton: Button = view.findViewById(R.id.signupButton)
         val emailEditText: EditText = view.findViewById(R.id.signupEmailEditText)
         val passwordEditText: EditText = view.findViewById(R.id.signupPasswordEditText)
-        val progressBar :ProgressBar =view.findViewById(R.id.progressBar3)
+        val progressBar: ProgressBar = view.findViewById(R.id.progressBar3)
 
         signupButton.setOnClickListener {
-            signupButton.text=" "
-            progressBar.visibility=View.VISIBLE
+            signupButton.text = " "
+            progressBar.visibility = View.VISIBLE
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
 
             if (email.isEmpty() || password.isEmpty()) {
-
                 Toast.makeText(
                     requireContext(),
-                    "Please enter username,email and password",
+                    "Please enter username, email, and password",
                     Toast.LENGTH_SHORT
                 ).show()
-                signupButton.text="SignUp"
-                progressBar.visibility=View.GONE
+                signupButton.text = "SignUp"
+                progressBar.visibility = View.GONE
                 return@setOnClickListener
             }
 
@@ -50,23 +51,27 @@ class signup : Fragment() {
                     if (task.isSuccessful) {
                         // Sign up success
                         val user = auth.currentUser
+                        // Save user details to Firestore
+                        user?.let {
+                            saveUserDetailsToFirestore(it.uid, "user")
+                        }
+
                         Toast.makeText(
                             requireContext(),
                             "Account created successfully",
                             Toast.LENGTH_SHORT
                         ).show()
-                        signupButton.text="SignUp"
-                        progressBar.visibility=View.GONE
+                        signupButton.text = "SignUp"
+                        progressBar.visibility = View.GONE
                         findNavController().navigate(R.id.action_signup_to_login)
                     } else {
-
                         Toast.makeText(
                             requireContext(),
                             "Authentication failed.",
                             Toast.LENGTH_SHORT
                         ).show()
-                        signupButton.text="SignUp"
-                        progressBar.visibility=View.GONE
+                        signupButton.text = "SignUp"
+                        progressBar.visibility = View.GONE
                     }
                 }
         }
@@ -79,5 +84,25 @@ class signup : Fragment() {
         return view
     }
 
+    private fun saveUserDetailsToFirestore(uid: String, role: String) {
+        val userMap = hashMapOf(
+            "uid" to uid,
+            "role" to role
 
+        )
+
+        firestore.collection("users").document(uid)
+            .set(userMap)
+            .addOnSuccessListener {
+
+            }
+            .addOnFailureListener { e ->
+
+                Toast.makeText(
+                    requireContext(),
+                    "Failed to save user details: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+    }
 }
