@@ -49,9 +49,8 @@ class DoctorTimingAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val timing = timingList[position]
 
-        fetchHospitalName(timing.hospitalId, holder.tvHospitalName)
-
         holder.tvHours.text = timing.hours
+        holder.tvHospitalName.text = timing.hospital
 
         // Update the background color based on the selected position
         if (position == selectedPosition) {
@@ -65,20 +64,5 @@ class DoctorTimingAdapter(
         return timingList.size
     }
 
-    private fun fetchHospitalName(hospitalId: String, tvHospitalName: TextView) {
-        val db = FirebaseFirestore.getInstance()
-        val hospitalsCollection = db.collection("hospital") // Adjust the collection name
 
-        hospitalsCollection.document(hospitalId)
-            .get()
-            .addOnSuccessListener { documentSnapshot ->
-                if (documentSnapshot.exists()) {
-                    val hospitalName = documentSnapshot.getString("name")
-                    tvHospitalName.text = hospitalName
-                }
-            }
-            .addOnFailureListener { exception ->
-                // Handle errors
-            }
-    }
 }

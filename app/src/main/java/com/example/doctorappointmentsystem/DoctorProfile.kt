@@ -1,7 +1,6 @@
 package com.example.doctorappointmentsystem
 
 import DoctorTimingAdapter
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class DoctorProfile : Fragment(), DoctorTimingAdapter.OnItemClickListener {
@@ -25,6 +25,7 @@ class DoctorProfile : Fragment(), DoctorTimingAdapter.OnItemClickListener {
     private lateinit var timingAdapter: RecyclerView.Adapter<*>
     private lateinit var timingList: MutableList<DoctorTiming>
     private var selectedPosition = RecyclerView.NO_POSITION
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +47,7 @@ class DoctorProfile : Fragment(), DoctorTimingAdapter.OnItemClickListener {
         val doctorSpecialty = bundle?.getString("doctorSpecialty", "")
         val aboutDoctor = bundle?.getString("doctorAbout", "")
 
-        // Display data in TextViews
+
         val tvDoctorName: TextView = view.findViewById(R.id.nameTextView)
         val tvDoctorSpecialty: TextView = view.findViewById(R.id.specialtiesTextView)
         val tvDoctorAbout: TextView = view.findViewById(R.id.aboutTextView)
@@ -78,15 +79,16 @@ class DoctorProfile : Fragment(), DoctorTimingAdapter.OnItemClickListener {
 
     private fun fetchAndDisplayDoctorTimings(doctorId: String) {
         val db = FirebaseFirestore.getInstance()
-        val timingsCollection = db.collection("timing")
+        val timingsCollection = db.collection("slots")
 
-        timingsCollection.whereEqualTo("doctor_id", doctorId)
+        timingsCollection.whereEqualTo("doctorUid", doctorId)
             .get()
             .addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot) {
-                    val hospitalId = document.getString("hospital_id")
-                    val hours = document.getString("hours")
-                    val timing = DoctorTiming(hospitalId.orEmpty(), hours.orEmpty())
+                    val hospitalName = document.getString("hospitalName")
+                    val hours = document.getString("slotTiming")
+                    val doctorUid = document.getString("doctorUid")
+                    val timing = DoctorTiming(hospitalName.orEmpty(), hours.orEmpty(), doctorUid.orEmpty())
                     timingList.add(timing)
                 }
 
@@ -105,10 +107,11 @@ class DoctorProfile : Fragment(), DoctorTimingAdapter.OnItemClickListener {
     private fun navigateToAppointmentForm(selectedTiming: DoctorTiming,doctorName: String,doctorSpecialty :String) {
 
         val bundle = bundleOf(
-            "hospitalId" to selectedTiming.hospitalId,
+            "hospital" to selectedTiming.hospital,
             "hours" to selectedTiming.hours,
             "doctorName" to doctorName,
             "doctorSpecialty" to doctorSpecialty,
+            "doctorUid" to selectedTiming.doctorUid
         )
         findNavController().navigate(R.id.action_doctorProfile_to_appointmentForm, bundle)
 

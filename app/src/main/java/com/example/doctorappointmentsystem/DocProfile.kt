@@ -18,6 +18,9 @@ import com.google.firebase.firestore.QuerySnapshot
 
 class DocProfile : Fragment() {
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var nameTextView: TextView
+    private lateinit var specialtiesTextView: TextView
+    private lateinit var aboutTextView: TextView
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     @SuppressLint("MissingInflatedId")
@@ -34,7 +37,9 @@ class DocProfile : Fragment() {
             findNavController().navigate(R.id.action_docProfile2_to_doctorHome2)
         }
         val currentUserId = firebaseAuth.currentUser?.uid
-
+        val currentUserEmail=firebaseAuth.currentUser?.email
+        val emailTextView:TextView=view.findViewById(R.id.emailTextView)
+        emailTextView.text=currentUserEmail
         if (currentUserId != null) {
             fetchDoctorData(currentUserId, view)
         }
@@ -46,6 +51,10 @@ class DocProfile : Fragment() {
         val viewSlotButton :Button =view.findViewById(R.id.ViewSlotButton)
         viewSlotButton.setOnClickListener {
             findNavController().navigate(R.id.action_docProfile2_to_viewslots)
+        }
+        val editProfileButton: Button = view.findViewById(R.id.editProfileButton)
+        editProfileButton.setOnClickListener {
+            showEditProfileDialog()
         }
         return view
     }
@@ -63,12 +72,14 @@ class DocProfile : Fragment() {
                     val about = document.getString("about")
 
 
-                    val nameTextView: TextView = view.findViewById(R.id.nameTextView)
-                    val specialtiesTextView: TextView = view.findViewById(R.id.specialtiesTextView)
-                    val aboutTextView: TextView = view.findViewById(R.id.aboutTextView)
+                     nameTextView = view.findViewById(R.id.nameTextView)
+                     specialtiesTextView = view.findViewById(R.id.specialtiesTextView)
+                     aboutTextView = view.findViewById(R.id.aboutTextView)
+
                     nameTextView.text = name
                     specialtiesTextView.text = specialties
                     aboutTextView.text = about
+
                 }
             }
             .addOnFailureListener { exception ->
@@ -148,6 +159,46 @@ class DocProfile : Fragment() {
             }
         }
 
+
+        builder.setNegativeButton("Cancel") { _, _ -> }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+    private fun showEditProfileDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Edit Profile")
+
+        val inflater = layoutInflater
+        val dialogLayout = inflater.inflate(R.layout.dialog_edit_profile, null)
+
+        val nameEditText: EditText = dialogLayout.findViewById(R.id.editName)
+        val specialtiesEditText: EditText = dialogLayout.findViewById(R.id.editSpecialties)
+        val aboutEditText: EditText = dialogLayout.findViewById(R.id.editAbout)
+
+        // Set default values
+        nameEditText.setText(nameTextView.text)
+        specialtiesEditText.setText(specialtiesTextView.text)
+        aboutEditText.setText(aboutTextView.text)
+
+        builder.setView(dialogLayout)
+
+        builder.setPositiveButton("Save") { _, _ ->
+            // Save the edited profile details
+            val editedName = nameEditText.text.toString().trim()
+            val editedSpecialties = specialtiesEditText.text.toString().trim()
+            val editedAbout = aboutEditText.text.toString().trim()
+
+            // Update UI with edited details
+            nameTextView.text = editedName
+            specialtiesTextView.text = editedSpecialties
+            aboutTextView.text = editedAbout
+
+            // Save the edited details to Firestore or any storage as needed
+            // You can add your Firestore update logic here
+
+            Toast.makeText(requireContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show()
+        }
 
         builder.setNegativeButton("Cancel") { _, _ -> }
 

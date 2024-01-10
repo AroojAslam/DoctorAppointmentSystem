@@ -16,7 +16,6 @@ class PatientAdapter(private var patients: List<Patient>) :
     RecyclerView.Adapter<PatientAdapter.PatientViewHolder>() {
 
     private val db = FirebaseFirestore.getInstance()
-    private val hospitalsCollection = db.collection("hospital")
 
     class PatientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val appointmentNumber: TextView = itemView.findViewById(R.id.AppointmentNumber)
@@ -33,21 +32,14 @@ class PatientAdapter(private var patients: List<Patient>) :
     override fun onBindViewHolder(holder: PatientViewHolder, position: Int) {
         val patient = patients[position]
         val appointmentNo = position + 1
-        hospitalsCollection.document(patient.hospitalId).get().addOnSuccessListener { documentSnapshot ->
-            if (documentSnapshot.exists()) {
-                val hospitalName = documentSnapshot.getString("name")
-                holder.appointmentDetails.text =
-                    "${patient.name} has an appointment with ${patient.doctorName} at $hospitalName in slot ${patient.hours}"
-                holder.appointmentNumber.text = "Appointment No ${appointmentNo.toString()}"
+        holder.appointmentDetails.text =
+            "${patient.name} has an appointment with ${patient.doctorName} at ${patient.hospital} in slot ${patient.hours}"
+        holder.appointmentNumber.text = "Appointment No ${appointmentNo.toString()}"
 
-                holder.deleteAppointment.setOnClickListener {
-                    deleteAppointment(patient.patientId, position)
-                }
-            }
+        holder.deleteAppointment.setOnClickListener {
+            deleteAppointment(patient.patientId, position)
         }
-            .addOnFailureListener { exception ->
-                Log.e(TAG, "Error fetching hospital data", exception)
-            }
+
     }
 
     override fun getItemCount(): Int {

@@ -7,7 +7,8 @@ data class Patient(
     val name: String = "",
     val gender: String = "",
     val phone: String = "",
-    val hospitalId: String = "",
+    val hospital: String = "",
     val hours: String ="",
-    val patientId: String=""
+    val patientId: String="",
+
 )

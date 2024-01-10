@@ -36,7 +36,7 @@ class DoctorAdapter(private var originalDoctorList: List<Doctor>) :
             bundle.putString("doctorAbout", doctor.about)
             bundle.putString("doctorId", doctor.doctorId)
 
-            // Pass the bundle to DoctorProfile fragment
+
             it.findNavController().navigate(R.id.action_homePage_to_doctorProfile, bundle)
         }
     }

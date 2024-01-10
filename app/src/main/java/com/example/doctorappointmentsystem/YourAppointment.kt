@@ -51,15 +51,15 @@ class YourAppointment : Fragment() {
                         val name = document.getString("name") ?: ""
                         val gender = document.getString("gender") ?: ""
                         val phone = document.getString("phone") ?: ""
-                        val hospitalId = document.getString("hospital_id") ?: ""
+                        val hospital = document.getString("hospital") ?: ""
                         val hours = document.getString("hours") ?: ""
                         val patientId = document.getString("patientId") ?: ""
           if(uid==userUid){
-                         patients.add(Patient(uid, doctorName, doctorSpecialty, name, gender, phone, hospitalId,hours,patientId))
+                         patients.add(Patient(uid, doctorName, doctorSpecialty, name, gender, phone, hospital,hours,patientId))
                     }
 
                     }
-                    // Assuming you have a variable called patientList and patientAdapter
+
                     patientList.addAll(patients)
                     patientAdapter.notifyDataSetChanged()
                 } else {

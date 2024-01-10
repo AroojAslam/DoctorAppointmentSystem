@@ -1,6 +1,4 @@
 package com.example.doctorappointmentsystem
-
-import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.text.TextUtils
@@ -38,21 +36,24 @@ class AppointmentForm : Fragment() {
         (activity as AppCompatActivity?)?.supportActionBar?.title = ""
 
         val bundle = arguments
-        val hospitalId = bundle?.getString("hospitalId", "")
+        val hospitalName = bundle?.getString("hospital", "")
         val hours = bundle?.getString("hours", "")
         val docName = bundle?.getString("doctorName", "")
         val docSpecialty = bundle?.getString("doctorSpecialty", "")
+        val doctorUid = bundle?.getString("doctorUid", "")
       val doctorSpecialty :TextView=view.findViewById(R.id.DoctorSpecialty)
         doctorSpecialty.text="($docSpecialty)"
      val doctorName :TextView =view.findViewById(R.id.doctorName)
          doctorName.text=docName
         val timing: TextView = view.findViewById(R.id.timing)
         timing.text = hours
+       val hospitalNameTextView: TextView = view.findViewById(R.id.hospitalName)
+    hospitalNameTextView.text=hospitalName
+
         val backicon: ImageButton = view.findViewById(R.id.backicon)
         backicon.setOnClickListener {
             findNavController().navigate(R.id.action_appointmentForm_to_homePage)
         }
-        fetchHospitalName(hospitalId)
         nameEditText = view.findViewById(R.id.nameEditText)
         phoneEditText = view.findViewById(R.id.phoneEditText)
         genderEditText = view.findViewById(R.id.genderEditText)
@@ -65,7 +66,7 @@ class AppointmentForm : Fragment() {
     Toast.makeText(requireContext(), "Enter Your Data", Toast.LENGTH_SHORT).show()
      }else if(validateInput()){
 
-    addPatientData(name, phone, gender,docName.orEmpty(),docSpecialty.orEmpty(),hours.orEmpty(),hospitalId)
+    addPatientData(name, phone, gender,docName.orEmpty(),docSpecialty.orEmpty(),hours.orEmpty(),hospitalName.orEmpty(),doctorUid.toString())
     Toast.makeText(requireContext(), "Your Appointment is Added", Toast.LENGTH_SHORT).show()
     findNavController().navigate(R.id.action_appointmentForm_to_homePage)
      }else {
@@ -77,23 +78,6 @@ class AppointmentForm : Fragment() {
         return view
     }
 
-    private fun fetchHospitalName(hospitalId: String?) {
-        val db = FirebaseFirestore.getInstance()
-        val hospitalsCollection = db.collection("hospital")
-
-        hospitalsCollection.document(hospitalId.orEmpty())
-            .get()
-            .addOnSuccessListener { documentSnapshot ->
-                if (documentSnapshot.exists()) {
-                    val hospitalName = documentSnapshot.getString("name")
-                    val hospitalNameTextView: TextView = requireView().findViewById(R.id.hospitalName)
-                    hospitalNameTextView.text = hospitalName
-                }
-            }
-            .addOnFailureListener { exception ->
-
-            }
-    }
     private fun addPatientData(
         name: String,
         phone: String,
@@ -101,7 +85,8 @@ class AppointmentForm : Fragment() {
         docName: String,
         docSpecialty: String,
         hours: String,
-        hospitalId: String?
+        hospital: String,
+        doctorUid:String,
     ) {
 
         val db = FirebaseFirestore.getInstance()
@@ -119,7 +104,8 @@ class AppointmentForm : Fragment() {
                 "doctorName" to docName,
                 "doctorSpecialty" to docSpecialty,
                 "hours" to hours,
-                "hospital_id" to hospitalId,
+                "hospital" to hospital,
+                "doctorUid" to doctorUid,
             )
 
             db.collection("patients")
@@ -150,13 +136,12 @@ class AppointmentForm : Fragment() {
         }
 
 
-        // Validate Phone Number
         if (TextUtils.isEmpty(phone) || !Patterns.PHONE.matcher(phone).matches() || phone.length != 11) {
             phoneEditText.error = "Enter a valid 11-digit phone number"
             return false
         }
 
-        // Validate Gender (assuming it can be either male, female, or other)
+
         if (TextUtils.isEmpty(gender) || (!gender.equals("male", ignoreCase = true) && !gender.equals(
                 "female",
                 ignoreCase = true
@@ -166,7 +151,6 @@ class AppointmentForm : Fragment() {
             return false
         }
 
-        // All validations passed
         return true
     }
 
