@@ -41,6 +41,7 @@
        android:background="?attr/colorPrimary"
        app:titleTextColor="@color/white">
 
+
     <ImageButton
         android:id="@+id/logoutButton"
         android:layout_marginRight="15dp"
@@ -49,6 +50,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_logout" />
+    <ImageButton
+        android:id="@+id/notificationButton"
+        android:layout_marginRight="20dp"
+        android:layout_gravity="right"
+        android:background="?attr/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_notifications" />
    </com.google.android.material.appbar.MaterialToolbar>
 
   </com.google.android.material.appbar.AppBarLayout>

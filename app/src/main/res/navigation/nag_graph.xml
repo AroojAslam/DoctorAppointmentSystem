@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_homePage_to_login2"
             app:destination="@id/login" />
+        <action
+            android:id="@+id/action_homePage_to_notification"
+            app:destination="@id/notification" />
     </fragment>
     <fragment
         android:id="@+id/doctorProfile"
@@ -157,5 +160,14 @@
         <action
             android:id="@+id/action_viewslots_to_docProfile2"
             app:destination="@id/docProfile2" />
+    </fragment>
+    <fragment
+        android:id="@+id/notification"
+        android:name="com.example.doctorappointmentsystem.notification"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" >
+        <action
+            android:id="@+id/action_notification_to_homePage"
+            app:destination="@id/homePage" />
     </fragment>
 </navigation>

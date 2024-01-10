@@ -59,9 +59,12 @@ class HomePage : Fragment() {
         doctorAdapter = DoctorAdapter(doctorList)
         recyclerView.adapter = doctorAdapter
 
-        // Fetch data from Firestore
         fetchDoctorsFromFirestore()
 
+        val notificationButton : ImageButton=view.findViewById(R.id.notificationButton)
+        notificationButton.setOnClickListener {
+            findNavController().navigate(R.id.action_homePage_to_notification)
+        }
         val appButton: Button = view.findViewById(R.id.button2)
         appButton.setOnClickListener {
             findNavController().navigate(R.id.action_homePage_to_yourAppointment)
