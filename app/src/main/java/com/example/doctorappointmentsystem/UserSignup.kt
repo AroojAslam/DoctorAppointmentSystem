@@ -63,7 +63,7 @@ class UserSignup : Fragment() {
                         ).show()
                         signupButton.text = "SignUp"
                         progressBar.visibility = View.GONE
-                        findNavController().navigate(R.id.action_signup_to_login)
+                        findNavController().navigate(R.id.action_signup_to_homePage)
                     } else {
                         Toast.makeText(
                             requireContext(),

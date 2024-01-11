@@ -1,6 +1,7 @@
 package com.example.doctorappointmentsystem
 import CategoryAdapter
 import DoctorAdapter
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,6 +27,7 @@ class HomePage : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private val firestore = FirebaseFirestore.getInstance()
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,7 +38,6 @@ class HomePage : Fragment() {
         (activity as AppCompatActivity?)?.setSupportActionBar(toolbar)
         (activity as AppCompatActivity?)?.supportActionBar?.title = " "
 
-        // Initialize CategoryAdapter
         val DocType = listOf("All", "Cardiologist", "Dentist", "Orthopedic Surgeon", "Neurologist")
         val icons = listOf(
             "@drawable/logo",
@@ -61,9 +62,9 @@ class HomePage : Fragment() {
 
         fetchDoctorsFromFirestore()
 
-        val notificationButton : ImageButton=view.findViewById(R.id.notificationButton)
-        notificationButton.setOnClickListener {
-            findNavController().navigate(R.id.action_homePage_to_notification)
+        val historyButton : ImageButton=view.findViewById(R.id.historyButton)
+        historyButton.setOnClickListener {
+            findNavController().navigate(R.id.action_homePage_to_patientHistory)
         }
         val appButton: Button = view.findViewById(R.id.button2)
         appButton.setOnClickListener {

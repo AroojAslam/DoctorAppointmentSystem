@@ -90,7 +90,7 @@ class DoctorSignup : Fragment() {
                     }
                     // Handle successful signup
                     Toast.makeText(requireContext(), "Account created successfully", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_doctorSignup_to_login)
+                    findNavController().navigate(R.id.action_doctorSignup_to_doctorHome2)
                 } else {
                     // Handle signup failure
                     val errorMessage = task.exception?.message ?: "Authentication failed."

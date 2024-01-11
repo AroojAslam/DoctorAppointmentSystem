@@ -51,13 +51,13 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_logout" />
     <ImageButton
-        android:id="@+id/notificationButton"
+        android:id="@+id/historyButton"
         android:layout_marginRight="20dp"
         android:layout_gravity="right"
         android:background="?attr/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_notifications" />
+        android:src="@drawable/ic_history" />
    </com.google.android.material.appbar.MaterialToolbar>
 
   </com.google.android.material.appbar.AppBarLayout>

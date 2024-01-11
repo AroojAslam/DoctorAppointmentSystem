@@ -5,13 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
+    android:layout_marginBottom="10dp"
     android:layout_marginHorizontal="10dp"
     android:background="@drawable/category_card"
     android:orientation="horizontal">
 
   <LinearLayout
-      android:layout_width="wrap_content"
+      android:layout_width="250dp"
       android:layout_height="wrap_content"
+      android:layout_gravity="left"
+      android:gravity="left"
       android:orientation="vertical">
 
       <TextView
@@ -33,18 +36,22 @@
           android:layout_marginTop="4dp"
           android:layout_marginEnd="8dp"/>
   </LinearLayout>
-    <ImageView
-        android:id="@+id/deleteIcon"
-android:layout_gravity="center"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:padding="10dp"
-        android:layout_marginLeft="10dp"
-        android:backgroundTint="?attr/colorPrimary"
-        android:background="@drawable/category_card"
-        android:src="@drawable/ic_delete"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:clickable="true"
-        android:focusable="true"/>
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+       <ImageView
+           android:id="@+id/deleteIcon"
+           android:layout_gravity="center"
+           android:layout_width="45dp"
+           android:layout_height="45dp"
+           android:padding="10dp"
+           android:layout_marginLeft="10dp"
+           android:backgroundTint="?attr/colorPrimary"
+           android:background="@drawable/category_card"
+           android:src="@drawable/ic_delete"
+           android:layout_marginStart="8dp"
+           android:layout_marginEnd="8dp"
+           android:clickable="true"
+           android:focusable="true"/>
+   </LinearLayout>
 </LinearLayout>

@@ -32,8 +32,8 @@
             android:id="@+id/action_homePage_to_login2"
             app:destination="@id/login" />
         <action
-            android:id="@+id/action_homePage_to_notification"
-            app:destination="@id/notification" />
+            android:id="@+id/action_homePage_to_patientHistory"
+            app:destination="@id/patientHistory" />
     </fragment>
     <fragment
         android:id="@+id/doctorProfile"
@@ -88,6 +88,9 @@
         <action
             android:id="@+id/action_signup_to_login"
             app:destination="@id/login" />
+        <action
+            android:id="@+id/action_signup_to_homePage"
+            app:destination="@id/homePage" />
     </fragment>
     <fragment
         android:id="@+id/checkFragment"
@@ -127,6 +130,9 @@
         <action
             android:id="@+id/action_doctorSignup_to_login"
             app:destination="@id/login" />
+        <action
+            android:id="@+id/action_doctorSignup_to_doctorHome2"
+            app:destination="@id/doctorHome2" />
     </fragment>
     <fragment
         android:id="@+id/doctorHome2"
@@ -139,6 +145,9 @@
         <action
             android:id="@+id/action_doctorHome2_to_docProfile2"
             app:destination="@id/docProfile2" />
+        <action
+            android:id="@+id/action_doctorHome2_to_doctorHistory"
+            app:destination="@id/doctorHistory" />
     </fragment>
     <fragment
         android:id="@+id/docProfile2"
@@ -162,12 +171,21 @@
             app:destination="@id/docProfile2" />
     </fragment>
     <fragment
-        android:id="@+id/notification"
-        android:name="com.example.doctorappointmentsystem.notification"
-        android:label="fragment_notification"
-        tools:layout="@layout/fragment_notification" >
+        android:id="@+id/patientHistory"
+        android:name="com.example.doctorappointmentsystem.PatientHistory"
+        android:label="fragment_patient_history"
+        tools:layout="@layout/fragment_patient_history" >
         <action
-            android:id="@+id/action_notification_to_homePage"
+            android:id="@+id/action_patientHistory_to_homePage"
             app:destination="@id/homePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorHistory"
+        android:name="com.example.doctorappointmentsystem.DoctorHistory"
+        android:label="fragment_doctor_history"
+        tools:layout="@layout/fragment_doctor_history" >
+        <action
+            android:id="@+id/action_doctorHistory_to_doctorHome2"
+            app:destination="@id/doctorHome2" />
     </fragment>
 </navigation>

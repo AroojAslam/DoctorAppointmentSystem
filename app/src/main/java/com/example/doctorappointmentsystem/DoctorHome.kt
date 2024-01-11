@@ -39,6 +39,10 @@ class DoctorHome : Fragment() {
         logoutButton.setOnClickListener {
             showLogoutConfirmationDialog()
         }
+        val historyButton : ImageButton=view.findViewById(R.id.historyButton)
+        historyButton.setOnClickListener {
+            findNavController().navigate(R.id.action_doctorHome2_to_doctorHistory)
+        }
         val recyclerView: RecyclerView =view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         yourPatientAdapter=YourPatientAdapter(patientList)

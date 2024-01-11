@@ -1,6 +1,7 @@
 package com.example.doctorappointmentsystem
 
 import android.annotation.SuppressLint
+import android.app.TimePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,13 +16,19 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class DocProfile : Fragment() {
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var nameTextView: TextView
     private lateinit var specialtiesTextView: TextView
     private lateinit var aboutTextView: TextView
+    private lateinit var docTimingEditText: TextView
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private var startTime = Calendar.getInstance()
+    private var endTime = Calendar.getInstance()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -108,7 +115,38 @@ class DocProfile : Fragment() {
                 // Handle failure
             }
     }
+    fun showTimePickerDialog(view: View) {
+        val is24HourFormat = false
+        val timePickerDialog = TimePickerDialog(
+            requireContext(),
+            TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
 
+                if (view.id == R.id.docTiming) {
+                    startTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    startTime.set(Calendar.MINUTE, minute)
+
+                    endTime.timeInMillis = startTime.timeInMillis + 15 * 60 * 1000
+                } else {
+
+                }
+                updateEditText()
+            },
+            startTime.get(Calendar.HOUR_OF_DAY),
+            startTime.get(Calendar.MINUTE),
+            is24HourFormat
+        )
+
+        timePickerDialog.show()
+    }
+
+
+    private fun updateEditText() {
+        val dateFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val startTimeText = dateFormat.format(startTime.time)
+        val endTimeText = dateFormat.format(endTime.time)
+        val timeRangeText = "$startTimeText - $endTimeText"
+        docTimingEditText.setText(timeRangeText)
+    }
     @SuppressLint("MissingInflatedId")
     private fun showHospitalDialog(hospitalsList: List<String>) {
         val builder = AlertDialog.Builder(requireContext())
@@ -118,10 +156,15 @@ class DocProfile : Fragment() {
         val dialogLayout = inflater.inflate(R.layout.dialog_add_slot, null)
 
         val hospitalSpinner: Spinner = dialogLayout.findViewById(R.id.hospitalSpinner)
+        docTimingEditText = dialogLayout.findViewById(R.id.docTiming)
 
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, hospitalsList)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         hospitalSpinner.adapter = adapter
+
+        docTimingEditText.setOnClickListener {
+            showTimePickerDialog(docTimingEditText)
+        }
 
         builder.setView(dialogLayout)
 
@@ -176,7 +219,6 @@ class DocProfile : Fragment() {
         val specialtiesEditText: EditText = dialogLayout.findViewById(R.id.editSpecialties)
         val aboutEditText: EditText = dialogLayout.findViewById(R.id.editAbout)
 
-        // Set default values
         nameEditText.setText(nameTextView.text)
         specialtiesEditText.setText(specialtiesTextView.text)
         aboutEditText.setText(aboutTextView.text)
@@ -184,18 +226,13 @@ class DocProfile : Fragment() {
         builder.setView(dialogLayout)
 
         builder.setPositiveButton("Save") { _, _ ->
-            // Save the edited profile details
             val editedName = nameEditText.text.toString().trim()
             val editedSpecialties = specialtiesEditText.text.toString().trim()
             val editedAbout = aboutEditText.text.toString().trim()
-
-            // Update UI with edited details
             nameTextView.text = editedName
             specialtiesTextView.text = editedSpecialties
             aboutTextView.text = editedAbout
 
-            // Save the edited details to Firestore or any storage as needed
-            // You can add your Firestore update logic here
 
             Toast.makeText(requireContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show()
         }
