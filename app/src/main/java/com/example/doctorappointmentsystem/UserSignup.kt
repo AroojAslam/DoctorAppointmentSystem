@@ -49,9 +49,8 @@ class UserSignup : Fragment() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
-                        // Sign up success
+
                         val user = auth.currentUser
-                        // Save user details to Firestore
                         user?.let {
                             saveUserDetailsToFirestore(it.uid, "user")
                         }

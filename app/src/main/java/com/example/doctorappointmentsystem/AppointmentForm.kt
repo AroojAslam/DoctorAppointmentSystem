@@ -121,7 +121,7 @@ class AppointmentForm : Fragment() {
 
     private fun generateUniquePatientId(name: String): String {
         val timestamp = System.currentTimeMillis()
-        val randomPart = (0..9999).random() // You can adjust the range as needed
+        val randomPart = (0..9999).random()
         return "$name-$timestamp-$randomPart"
     }
 

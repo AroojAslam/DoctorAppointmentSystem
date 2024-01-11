@@ -63,7 +63,6 @@ class DoctorHistory : Fragment() {
                         val phone = document.getString("phone") ?: ""
                         val hospital = document.getString("hospital") ?: ""
                         val hours = document.getString("hours") ?: ""
-                        val patientId = document.getString("patientId") ?: ""
 
                         if (doctorUid == userUid) {
                             confirmPatients.add(ConfirmPatient(id, doctorUid, patientUid, name, gender, phone, hospital, hours))

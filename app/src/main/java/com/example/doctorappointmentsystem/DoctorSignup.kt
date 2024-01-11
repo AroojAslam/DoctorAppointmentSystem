@@ -1,5 +1,6 @@
 package com.example.doctorappointmentsystem
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,10 @@ class DoctorSignup : Fragment() {
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
+    private lateinit var loginProgressBar: ProgressBar
+    private lateinit var signupButton: Button
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,8 +29,10 @@ class DoctorSignup : Fragment() {
         logInText.setOnClickListener {
             findNavController().navigate(R.id.action_doctorSignup_to_login)
         }
+        loginProgressBar = view.findViewById(R.id.loginProgressBar)
 
-        val signupButton: Button = view.findViewById(R.id.signupButton)
+
+         signupButton = view.findViewById(R.id.signupButton)
         signupButton.setOnClickListener {
             signupDoctor()
         }
@@ -39,7 +45,7 @@ class DoctorSignup : Fragment() {
         val specialtySpinner = view.findViewById<Spinner>(R.id.doctorSignupSpecialtySpinner)
         val specialtyTextInputLayout = view.findViewById<TextInputLayout>(R.id.specialtyTextInputLayout)
 
-        val specialtyOptions = arrayOf("Cardiologist", "Dentist", "Orthopedic Surgeon")
+        val specialtyOptions = arrayOf("Cardiologist", "Dentist", "Orthopedic Surgeon","Neurologist")
 
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, specialtyOptions)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -48,12 +54,12 @@ class DoctorSignup : Fragment() {
         specialtySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedSpecialty = specialtyOptions[position]
-                // Ensure that the selected specialty is being captured correctly
+
                 specialtyTextInputLayout.error = null
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Handle nothing selected if needed
+
             }
         }
     }
@@ -70,9 +76,11 @@ class DoctorSignup : Fragment() {
         val specialtySpinner = view?.findViewById<Spinner>(R.id.doctorSignupSpecialtySpinner)
         val specialty = specialtySpinner?.selectedItem.toString()
         val about = aboutEditText?.text.toString()
-
+        signupButton.text = ""
+        loginProgressBar.visibility = View.VISIBLE
         if (email.isEmpty() || password.isEmpty() || name.isEmpty() || specialty.isEmpty() || about.isEmpty()) {
-            // Handle empty fields
+            signupButton.text = "SignUp"
+            loginProgressBar.visibility = View.GONE
             Toast.makeText(requireContext(), "All fields are required", Toast.LENGTH_SHORT).show()
             return
         }
@@ -84,16 +92,17 @@ class DoctorSignup : Fragment() {
                     user?.let {
                         saveUserDetailsToFirestore(it.uid, "doctor")
                     }
-                    // Save doctor details to Firestore
                     user?.let {
                         saveDoctorDetailsToFirestore(it.uid, name, specialty, about)
                     }
-                    // Handle successful signup
                     Toast.makeText(requireContext(), "Account created successfully", Toast.LENGTH_SHORT).show()
+                    signupButton.text = "SignUp"
+                    loginProgressBar.visibility = View.GONE
                     findNavController().navigate(R.id.action_doctorSignup_to_doctorHome2)
                 } else {
-                    // Handle signup failure
                     val errorMessage = task.exception?.message ?: "Authentication failed."
+                    signupButton.text = "SignUp"
+                    loginProgressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -106,16 +115,15 @@ class DoctorSignup : Fragment() {
             "name" to name,
             "specialty" to specialty,
             "about" to about
-            // Add more doctor details as needed
+
         )
 
         firestore.collection("doctors").document(uid)
             .set(doctorMap)
             .addOnSuccessListener {
-                // Successfully saved doctor details to Firestore
             }
             .addOnFailureListener { e ->
-                // Handle failure to save doctor details
+
                 Toast.makeText(
                     requireContext(),
                     "Failed to save doctor details: ${e.message}",

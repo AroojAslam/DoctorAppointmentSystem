@@ -46,15 +46,12 @@ class login : Fragment() {
                 return@setOnClickListener
             }
 
-            // Firebase authentication
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
-                        // Sign in success
                         val user = auth.currentUser
                         checkUserRole(user?.uid, loginButton, loginProgressBar)
                     } else {
-                        // Handle login failure
                         Toast.makeText(
                             requireContext(),
                             "Authentication failed. Check your email and password.",
@@ -82,14 +79,12 @@ class login : Fragment() {
                     val role = documentSnapshot.getString("role")
                     navigateToHome(role, loginButton, loginProgressBar)
                 } else {
-                    // Document does not exist, handle accordingly
                     Toast.makeText(requireContext(), "User information not found.", Toast.LENGTH_SHORT).show()
                     loginButton.text = "Login"
                     loginProgressBar.visibility = View.GONE
                 }
             }
             .addOnFailureListener { e ->
-                // Handle failure to retrieve user information
                 Toast.makeText(
                     requireContext(),
                     "Failed to retrieve user information: ${e.message}",
@@ -105,7 +100,6 @@ class login : Fragment() {
             "doctor" -> findNavController().navigate(R.id.action_login_to_doctorHome2)
             "user" -> findNavController().navigate(R.id.action_login_to_homePage)
             else -> {
-                // Handle unknown role
                 Toast.makeText(requireContext(), "Unknown user role.", Toast.LENGTH_SHORT).show()
                 loginButton.text = "Login"
                 loginProgressBar.visibility = View.GONE

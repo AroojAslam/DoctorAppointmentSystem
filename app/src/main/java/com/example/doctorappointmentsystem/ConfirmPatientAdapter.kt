@@ -3,6 +3,7 @@ package com.example.doctorappointmentsystem
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,10 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ConfirmPatientAdapter :
     ListAdapter<ConfirmPatient, ConfirmPatientAdapter.ConfirmPatientViewHolder>(DiffCallback()) {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConfirmPatientViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_confirm_patient, parent, false)
+            .inflate(R.layout.item_your_patient, parent, false)
         return ConfirmPatientViewHolder(itemView)
     }
 
@@ -21,16 +21,21 @@ class ConfirmPatientAdapter :
         val confirmPatient = getItem(position)
 
         holder.patientName.text = confirmPatient.name
-        holder.patientHours.text = confirmPatient.hours
+        holder.patientGender.visibility = View.GONE
+        holder.Gender.visibility = View.GONE
         holder.patientPhone.text = confirmPatient.phone
-        // Add other views as needed
+        holder.slotTiming.text = confirmPatient.hours
+        holder.doneButton.visibility = View.GONE
     }
 
     class ConfirmPatientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val patientName: TextView = itemView.findViewById(R.id.patientName)
-        val patientHours: TextView = itemView.findViewById(R.id.patientHours)
+        val patientGender: TextView = itemView.findViewById(R.id.patientGender)
+        val Gender: TextView = itemView.findViewById(R.id.Gender)
         val patientPhone: TextView = itemView.findViewById(R.id.patientPhone)
-        // Add other views as needed
+        val doneButton: Button = itemView.findViewById(R.id.doneButton)
+        val slotTiming: TextView=itemView.findViewById(R.id.slotTiming)
+
     }
 
     private class DiffCallback : DiffUtil.ItemCallback<ConfirmPatient>() {

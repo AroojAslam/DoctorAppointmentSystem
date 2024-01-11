@@ -107,12 +107,9 @@ class DocProfile : Fragment() {
                         hospitalsList.add(it)
                     }
                 }
-
-                // Show a dialog with hospital options
                 showHospitalDialog(hospitalsList)
             }
             .addOnFailureListener { exception ->
-                // Handle failure
             }
     }
     fun showTimePickerDialog(view: View) {
@@ -186,14 +183,11 @@ class DocProfile : Fragment() {
                         "slotTiming" to slotTiming
                     )
 
-                    // Add the new slot document to the Firestore collection
                     slotsCollection.add(newSlot)
                         .addOnSuccessListener { documentReference ->
-                            // Slot added successfully
                             Toast.makeText(requireContext(), "Slot added successfully", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener { e ->
-                            // Error adding slot
                             Toast.makeText(requireContext(), "Error adding slot", Toast.LENGTH_SHORT).show()
                         }
                 }

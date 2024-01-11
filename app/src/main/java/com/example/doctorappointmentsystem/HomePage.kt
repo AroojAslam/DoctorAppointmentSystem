@@ -25,7 +25,6 @@ class HomePage : Fragment() {
     private lateinit var auth: FirebaseAuth
     private val doctorList = mutableListOf<Doctor>()
     private lateinit var recyclerView: RecyclerView
-    private val firestore = FirebaseFirestore.getInstance()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(

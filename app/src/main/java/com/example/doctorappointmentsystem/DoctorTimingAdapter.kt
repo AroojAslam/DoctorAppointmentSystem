@@ -51,8 +51,6 @@ class DoctorTimingAdapter(
 
         holder.tvHours.text = timing.hours
         holder.tvHospitalName.text = timing.hospital
-
-        // Update the background color based on the selected position
         if (position == selectedPosition) {
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorSelected))
         } else {

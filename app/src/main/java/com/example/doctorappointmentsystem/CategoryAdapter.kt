@@ -36,7 +36,6 @@ class CategoryAdapter(
             imageView.setImageResource(resourceId)
 
             itemView.setOnClickListener {
-                // Call the onItemClick callback when an item is clicked
                 onItemClickListener.invoke(item)
             }
         }

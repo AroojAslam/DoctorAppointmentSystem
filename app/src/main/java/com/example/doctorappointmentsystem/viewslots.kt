@@ -24,7 +24,7 @@ class viewslots : Fragment(), SlotsAdapter.OnDeleteClickListener {
     private lateinit var slotsAdapter: SlotsAdapter
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
-    private var currentUserId: String? = null // Declare currentUserId as a class variable
+    private var currentUserId: String? = null
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -40,18 +40,15 @@ class viewslots : Fragment(), SlotsAdapter.OnDeleteClickListener {
             findNavController().navigate(R.id.action_viewslots_to_docProfile2)
         }
 
-        // Initialize Firebase
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
-        currentUserId = auth.currentUser?.uid // Assign the currentUserId here
+        currentUserId = auth.currentUser?.uid
 
-        // Set up RecyclerView
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         slotsAdapter = SlotsAdapter(this)
         recyclerView.adapter = slotsAdapter
 
-        // Fetch and display slot data
         fetchSlotData(currentUserId, view)
 
         return view

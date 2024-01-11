@@ -45,13 +45,11 @@ class DoctorAdapter(private var originalDoctorList: List<Doctor>) :
         return filteredDoctorList.size
     }
 
-    // Function to update the list of doctors and apply filtering
     fun updateDoctorList(newDoctorList: List<Doctor>, category: String) {
         originalDoctorList = newDoctorList
         filterDoctors(category)
     }
 
-    // Function to filter doctors based on the selected category
     private fun filterDoctors(category: String) {
         filteredDoctorList = if (category.isEmpty() || category == "All") {
             originalDoctorList // Show all doctors if no category selected or "All" selected

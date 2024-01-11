@@ -10,9 +10,18 @@ import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class PatientHistory : Fragment() {
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: ConfirmPatientAdapter
+    val auth = FirebaseAuth.getInstance()
+    val currentUser = auth.currentUser
+    val userUid = currentUser?.uid
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +35,41 @@ class PatientHistory : Fragment() {
         backicon.setOnClickListener {
             findNavController().navigate(R.id.action_patientHistory_to_homePage)
         }
+        recyclerView = view.findViewById(R.id.recyclerView)
+        adapter = ConfirmPatientAdapter()
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+
+        fetchConfirmPatientsFromFirestore()
         return view
     }
 
+    private fun fetchConfirmPatientsFromFirestore() {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("confirm_patients")
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val confirmPatients = mutableListOf<ConfirmPatient>()
+                    for (document in task.result!!) {
+                        val id = document.getString("id") ?: ""
+                        val doctorUid = document.getString("doctorUid") ?: ""
+                        val patientUid = document.getString("patientUid") ?: ""
+                        val name = document.getString("name") ?: ""
+                        val gender = document.getString("gender") ?: ""
+                        val phone = document.getString("phone") ?: ""
+                        val hospital = document.getString("hospital") ?: ""
+                        val hours = document.getString("hours") ?: ""
 
+                        if (patientUid == userUid) {
+                            confirmPatients.add(ConfirmPatient(id, doctorUid, patientUid, name, gender, phone, hospital, hours))
+                        }
+                    }
+
+                    adapter.submitList(confirmPatients)
+                } else {
+                    // Handle errors
+                }
+            }
+    }
 }

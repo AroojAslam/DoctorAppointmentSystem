@@ -40,7 +40,6 @@ class DoctorProfile : Fragment(), DoctorTimingAdapter.OnItemClickListener {
             findNavController().navigate(R.id.action_doctorProfile_to_homePage)
         }
 
-        // Retrieve data from arguments manually
         val bundle = arguments
         val doctorId = bundle?.getString("doctorId", "")
         val doctorName = bundle?.getString("doctorName", "")
@@ -56,17 +55,14 @@ class DoctorProfile : Fragment(), DoctorTimingAdapter.OnItemClickListener {
         tvDoctorSpecialty.text = doctorSpecialty
         tvDoctorAbout.text = aboutDoctor
 
-        // Set up the RecyclerView for doctor timings
         recyclerView = view.findViewById(R.id.recyclerViewDoctorTimings)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         timingList = mutableListOf()
 
-        // Fetch and display doctor's timing information from Firestore
         fetchAndDisplayDoctorTimings(doctorId.orEmpty())
         val button: Button = view.findViewById(R.id.button)
         button.setOnClickListener {
             if (selectedPosition != RecyclerView.NO_POSITION) {
-                // Item is selected, proceed to appointment form fragment
                 val selectedTiming = timingList[selectedPosition]
                 navigateToAppointmentForm(selectedTiming,doctorName.orEmpty(),doctorSpecialty.orEmpty())
             } else {
